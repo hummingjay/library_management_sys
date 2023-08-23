@@ -49,7 +49,7 @@ class App(customtkinter.CTk):
             user="root",
             password="password",
             database="my_database"
-        )
+        )                                                               
         cursor = connection.cursor()
         
         cursor.execute("SELECT * FROM users WHERE username=%s AND password=%s")
