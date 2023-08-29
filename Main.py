@@ -19,6 +19,9 @@ class sideframe(customtkinter.CTkFrame):
         
         self.circulate = customtkinter.CTkButton(self, text="Circulation", command=App.circulation)
         self.circulate.grid(row=4, column=0, padx=20, pady=10)
+        
+        self.appearance_mode_label = customtkinter.CTkLabel(self, text="Appearance Mode:")
+        self.appearance_mode_label.grid(row=6, column=0, padx=20, pady=10)
       
 class App(customtkinter.CTk):
     """Main instance of the App"""
