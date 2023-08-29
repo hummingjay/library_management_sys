@@ -21,7 +21,12 @@ class sideframe(customtkinter.CTkFrame):
         self.circulate.grid(row=4, column=0, padx=20, pady=10)
         
         self.appearance_mode_label = customtkinter.CTkLabel(self, text="Appearance Mode:")
-        self.appearance_mode_label.grid(row=6, column=0, padx=20, pady=10)
+        self.appearance_mode_label.grid(row=6, column=0, padx=20, pady=10, ipady=(30))
+        
+        self.appearance_mode_size = customtkinter.CTkOptionMenu(self, Values=["50", "60", "70", "80", "90", "100", "110", "120", "130"],
+                                                                command=App.change_scaling_event)
+        self.appearance_mode_size.grid(row=7)
+
       
 class App(customtkinter.CTk):
     """Main instance of the App"""
@@ -30,6 +35,8 @@ class App(customtkinter.CTk):
         
         self.title("Library Management system")
         self.geometry("770x700")
+        self.iconbitmap("login.ico")
+
         
         # configuring the grid layout
         self.grid_columnconfigure(1, weight=1)
@@ -49,7 +56,11 @@ class App(customtkinter.CTk):
     
     def circulation(self):
         pass
-        
+    
+    def change_scaling_event(self, new_scaling: str):
+        new_scaling_float = int(new_scaling.replace("%", "")) / 100
+        customtkinter.set_widget_scaling(new_scaling_float)
+
 if __name__ == "__main__":
     app = App()
     app.mainloop()
