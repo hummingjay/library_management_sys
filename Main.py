@@ -23,9 +23,22 @@ class sideframe(customtkinter.CTkFrame):
         self.appearance_mode_label = customtkinter.CTkLabel(self, text="Appearance Mode:")
         self.appearance_mode_label.grid(row=6, column=0, padx=20, pady=10)
         
+        self.appearance_mode_size_label = customtkinter.CTkLabel(self, text="Zoom")
+        self.appearance_mode_size_label.grid(row=7, column=0)
+        
         self.appearance_mode_size = customtkinter.CTkOptionMenu(self, values=["50", "60", "70", "80", "90", "100", "110", "120", "130"],
                                                                 command=self.change_scaling_event)
-        self.appearance_mode_size.grid(row=7, column=0, padx=20, pady=10)
+        self.appearance_mode_size.grid(row=8, column=0, padx=20, pady=10)
+        
+        self.appearance_mode_color_label = customtkinter.CTkLabel(self, text="Color mode")
+        self.appearance_mode_color_label.grid(row=9, column=0)
+        
+        self.appearance_mode_color = customtkinter.CTkOptionMenu(self, values=["Dark", "System", "Light"],
+                                                                 command=self.change_appearance_mode_event)
+        self.appearance_mode_color.grid(row=10, column=0, padx=20, pady=10)
+        
+    def change_appearance_mode_event(self, new_appearance_mode: str):
+        customtkinter.set_appearance_mode(new_appearance_mode)
 
     def change_scaling_event(self, new_scaling: str):
         new_scaling_float = int(new_scaling.replace("%", "")) / 100
@@ -53,6 +66,7 @@ class App(customtkinter.CTk):
         
         #setting defaults
         self.sideframe.appearance_mode_size.set("100%")
+        self.sideframe.appearance_mode_color.set("System")
     
     def books_view(self):
         pass
