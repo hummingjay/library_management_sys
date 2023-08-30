@@ -29,7 +29,7 @@ class App(customtkinter.CTk):
         super().__init__()
         
         self.title("Login Page")
-        self.geometry("600x400")
+        self.geometry("770x700")
         self.iconbitmap("login.ico")
         
         customtkinter.set_appearance_mode("system")
