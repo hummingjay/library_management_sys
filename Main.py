@@ -45,6 +45,11 @@ class sideframe(customtkinter.CTkFrame):
         """"Resizes the app widgets to zoom in and out for easy view"""
         new_scaling_float = int(new_scaling.replace("%", "")) / 100
         customtkinter.set_widget_scaling(new_scaling_float)
+
+class resultframe(customtkinter.CTkFrame):
+    def __init__(self, master):
+        super().__init__(master, fg_color="transparent")
+        
       
 class App(customtkinter.CTk):
     """Main instance of the App"""
@@ -69,6 +74,8 @@ class App(customtkinter.CTk):
         self.search_bar.grid(row=0, column=1, columnspan=2, padx=(20, 0), pady=(20,20), sticky="nsew")
         self.search_bar_button = customtkinter.CTkButton(self, text="Search", command=self.search, fg_color="magenta")
         self.search_bar_button.grid(row=0, column=3)
+        self.resultframe = resultframe(self)
+        self.resultframe.grid(row=1, rowspan=3, column=1, columnspan=3, sticky="wens")
         
         #setting defaults
         self.sideframe.appearance_mode_size.set("100%")
