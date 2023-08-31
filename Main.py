@@ -38,9 +38,11 @@ class sideframe(customtkinter.CTkFrame):
         self.appearance_mode_color.grid(row=10, column=0, padx=20, pady=10)
         
     def change_appearance_mode_event(self, new_appearance_mode: str):
+        """Sets the app into light, dark or system mode"""
         customtkinter.set_appearance_mode(new_appearance_mode)
 
     def change_scaling_event(self, new_scaling: str):
+        """"Resizes the app widgets to zoom in and out for easy view"""
         new_scaling_float = int(new_scaling.replace("%", "")) / 100
         customtkinter.set_widget_scaling(new_scaling_float)
       
@@ -55,18 +57,25 @@ class App(customtkinter.CTk):
 
         
         # configuring the grid layout
-        self.grid_columnconfigure(1, weight=1)
+        self.grid_columnconfigure((1, 2), weight=1)
         self.grid_columnconfigure((2,3), weight=0)
-        self.grid_rowconfigure((0, 1, 2), weight=1)
-        
+        #self.grid_rowconfigure((0, 1, 2), weight=1)
+
         # calling frames
         self.sideframe = sideframe(self)
         self.sideframe.grid(row=0, rowspan=4, column=0, sticky="wens")
         self.grid_rowconfigure(3, weight=1)
+        self.search_bar = customtkinter.CTkEntry(self, placeholder_text="Search")
+        self.search_bar.grid(row=0, column=1, columnspan=2, padx=(20, 0), pady=(20,20), sticky="nsew")
+        self.search_bar_button = customtkinter.CTkButton(self, text="Search", command=self.search, fg_color="magenta")
+        self.search_bar_button.grid(row=0, column=3)
         
         #setting defaults
         self.sideframe.appearance_mode_size.set("100%")
         self.sideframe.appearance_mode_color.set("System")
+    
+    def search(self):
+        pass
     
     def books_view(self):
         pass
