@@ -72,7 +72,7 @@ class App(customtkinter.CTk):
         self.grid_rowconfigure(3, weight=1)
         self.search_bar = customtkinter.CTkEntry(self, placeholder_text="Search")
         self.search_bar.grid(row=0, column=1, columnspan=2, padx=(20, 0), pady=(20,20), sticky="nsew")
-        self.search_bar_button = customtkinter.CTkButton(self, text="Search", command=self.search, fg_color="magenta")
+        self.search_bar_button = customtkinter.CTkButton(self, text="Search", command=self.search, fg_color="brown", hover_color="brown1")
         self.search_bar_button.grid(row=0, column=3)
         self.resultframe = resultframe(self)
         self.resultframe.grid(row=1, rowspan=3, column=1, columnspan=3, sticky="wens")
