@@ -1,6 +1,8 @@
 from tkinter import *
 import customtkinter
 import mysql.connector
+import sqlite3
+from tkinter import messagebox
 
 class inputframe(customtkinter.CTkFrame):
     """Sets up up the frame for the login"""
@@ -56,10 +58,11 @@ class App(customtkinter.CTk):
         
         results = cursor.fetchall()
         
+        
         if len(results) == 0:
-            print("Invalid username or password")
+            messagebox.showerror("Login failure", "Invalid username or password")
         else:
-            print("Login successful")
+            import Main
         
         cursor.close()
         connection.close()
