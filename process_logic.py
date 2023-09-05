@@ -20,6 +20,7 @@ class login_logic:
                 break
         while password != repassword:
             tkinter.messagebox.showerror("Password", "password mismatch")
+        
         insert = "INSERT INTO user(username, password) VALUES(?, ?)"
         c.execute(insert, [(username), (password)])
         
@@ -32,10 +33,17 @@ class login_logic:
     #def database_check(self):
           
     def login(self, username, password):
-        conn = sqlite3.connect("usersLibrary_management.db")
+        conn = sqlite3.connect("users.db")
         c = conn.cursor()
         
-        c.execute
+        c.execute("SELECT * FROM user WHERE username = ? AND password = ?", (username, password))
+        user = c.fetchone()
         
-        conn.commit()
-        conn.close()
+        if user is not None:
+            conn.commit()
+            conn.close()
+            return 0
+        else:
+            conn.commit()
+            conn.close()
+            return 1

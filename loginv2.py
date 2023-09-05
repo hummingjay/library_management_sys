@@ -2,13 +2,14 @@ from tkinter import *
 import customtkinter
 import sqlite3
 from tkinter import messagebox
+import process_logic
 
 conn = sqlite3.connect("users.db")
 c =conn.cursor()
 
-cursor.execute('''CREATE TABLE IF NOT EXISTS user(
+c.execute('''CREATE TABLE IF NOT EXISTS user(
     userID INTEGER PRIMARY KEY,
-    username VARCHAR(20) NOT NULL
+    username VARCHAR(20) NOT NULL,
     password VARCHAR(20) NOT NULL)
     ''')
 
@@ -27,7 +28,7 @@ class inputframe(customtkinter.CTkFrame):
         self.passwd.grid(row=2,column=0, pady=12, padx=10)
         
         #login button
-        self.button = customtkinter.CTkButton(self, text="Login", command=App.login)
+        self.button = customtkinter.CTkButton(self, text="Login", command=App.log_in)
         self.button.grid(row=3, column=0, pady=12, padx=10)
         
         self.checkbox = customtkinter.CTkCheckBox(self, text="Remember Me")
@@ -50,30 +51,17 @@ class App(customtkinter.CTk):
         self.inputframe = inputframe(self)
         self.inputframe.pack(side = LEFT, fill=BOTH)
         
-    def login(self):
+    def log_in(self):
         """ Loging the user into the system"""
         username = self.user.get()
         password = self.passwd.get()
-        connection = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="password",
-            database="my_database"
-        )                                                               
-        cursor = connection.cursor()
         
-        cursor.execute("SELECT * FROM users WHERE username=%s AND password=%s")
+        results = process_logic.login_logic.login(username, password)
         
-        results = cursor.fetchall()
-        
-        
-        if len(results) == 0:
+        if results == 1:
             messagebox.showerror("Login failure", "Invalid username or password")
         else:
             import Main
-        
-        cursor.close()
-        connection.close()
 
 if __name__ == "__main__":
     app = App()
