@@ -1,8 +1,16 @@
 from tkinter import *
 import customtkinter
-import mysql.connector
 import sqlite3
 from tkinter import messagebox
+
+conn = sqlite3.connect("users.db")
+c =conn.cursor()
+
+cursor.execute('''CREATE TABLE IF NOT EXISTS user(
+    userID INTEGER PRIMARY KEY,
+    username VARCHAR(20) NOT NULL
+    password VARCHAR(20) NOT NULL)
+    ''')
 
 class inputframe(customtkinter.CTkFrame):
     """Sets up up the frame for the login"""
