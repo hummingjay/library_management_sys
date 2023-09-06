@@ -33,6 +33,12 @@ class login_logic:
     #def database_check(self):
           
     def login(self, username, password):
+        """This logs in the user by doing the following:
+        Checks if there is an input of username and passowrd first if empty return 0
+        if successful username and password found, returns 1
+        if unsuccessful returns 2"""
+        if not username or not password:
+            return 0
         conn = sqlite3.connect("users.db")
         c = conn.cursor()
         
@@ -42,8 +48,8 @@ class login_logic:
         if user is not None:
             conn.commit()
             conn.close()
-            return 0
+            return 1
         else:
             conn.commit()
             conn.close()
-            return 1
+            return 2

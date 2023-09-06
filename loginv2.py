@@ -3,6 +3,7 @@ import customtkinter
 import sqlite3
 from tkinter import messagebox
 import process_logic
+import subprocess
 
 conn = sqlite3.connect("users.db")
 c =conn.cursor()
@@ -13,8 +14,11 @@ c.execute('''CREATE TABLE IF NOT EXISTS user(
     password VARCHAR(20) NOT NULL)
     ''')
 
+conn.commit()
+conn.close()
+
 class inputframe(customtkinter.CTkFrame):
-    """Sets up up the frame for the login"""
+    """Sets up up the frame for the login buttons and entry boxes"""
     def __init__(self, master):
         super().__init__(master)
         
@@ -28,20 +32,35 @@ class inputframe(customtkinter.CTkFrame):
         self.passwd.grid(row=2,column=0, pady=12, padx=10)
         
         #login button
-        self.button = customtkinter.CTkButton(self, text="Login", command=App.log_in)
+        self.button = customtkinter.CTkButton(self, text="Login", command=self.log_in)
         self.button.grid(row=3, column=0, pady=12, padx=10)
         
         self.checkbox = customtkinter.CTkCheckBox(self, text="Remember Me")
         self.checkbox.grid(row=4, column=0, pady=12, padx=10)
+        
+    def log_in(self):
+        """ Loging the user into the system and destroying login page to Main.py"""
+        username = self.user.get()
+        password = self.passwd.get()
+        
+        results = process_logic.login_logic.login(self, username, password)
+        
+        if results == 2:
+            messagebox.showerror("Login failure", "Invalid username or password")
+        elif results == 0:
+              messagebox.showinfo("Login requirements", "Input username and password")
+        else:
+            subprocess.run(["python", "Main.py"])
+            self.destroy()
     
 class App(customtkinter.CTk):
-    """Main app for running login page"""
+    """Main app for running login page Accesese the frames and defines the geometry of login page"""
     def __init__(self):
         super().__init__()
         
         self.title("Login Page")
         self.geometry("770x700")
-        self.iconbitmap("login.ico")
+        self.iconbitmap("images/login.ico")
         
         customtkinter.set_appearance_mode("system")
         customtkinter.set_default_color_theme("blue")
@@ -50,18 +69,7 @@ class App(customtkinter.CTk):
         #input call
         self.inputframe = inputframe(self)
         self.inputframe.pack(side = LEFT, fill=BOTH)
-        
-    def log_in(self):
-        """ Loging the user into the system"""
-        username = self.user.get()
-        password = self.passwd.get()
-        
-        results = process_logic.login_logic.login(username, password)
-        
-        if results == 1:
-            messagebox.showerror("Login failure", "Invalid username or password")
-        else:
-            import Main
+       
 
 if __name__ == "__main__":
     app = App()

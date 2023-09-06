@@ -58,7 +58,7 @@ class App(customtkinter.CTk):
         
         self.title("Library Management system")
         self.geometry("770x700")
-        self.iconbitmap("login.ico")
+        self.iconbitmap("images/login.ico")
 
         
         # configuring the grid layout
