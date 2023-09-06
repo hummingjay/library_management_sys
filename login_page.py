@@ -15,7 +15,7 @@ root.geometry("600x400")
 root.title("Login page")
 
 #icon in title bar
-root.iconbitmap('login.ico')
+root.iconbitmap('images/login.ico')
 
 def login():
     """Logs the user into the system"""
