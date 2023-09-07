@@ -66,7 +66,11 @@ class App(customtkinter.CTk):
         customtkinter.set_default_color_theme("blue")
         
     
-        #input call
+        #input calls and checks
+
+        if not process_logic.login_logic.user_exists_check(self):
+            subprocess.run(["python", "create_user.py"])
+        
         self.inputframe = inputframe(self)
         self.inputframe.pack(side = LEFT, fill=BOTH)
        

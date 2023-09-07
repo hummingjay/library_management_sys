@@ -22,7 +22,7 @@ class inputframe(customtkinter.CTkFrame):
     def __init__(self, master):
         super().__init__(master)
         
-        self.label =customtkinter.CTkLabel(self, text="User Login", font=("Helvetica", 28))
+        self.label =customtkinter.CTkLabel(self, text="Create user", font=("Helvetica", 28))
         self.label.grid(row=0, column=0, pady=12, padx=10)
         
         # inputs
@@ -57,7 +57,7 @@ class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
         
-        self.title("Login Page")
+        self.title("Create User")
         self.geometry("600x400")
         self.iconbitmap("images/login.ico")
         
