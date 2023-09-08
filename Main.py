@@ -1,6 +1,23 @@
 import customtkinter
 #import loginv2
 from tkinter import *
+import sqlite3
+
+conn = sqlite3.connect("books.db")
+c =conn.cursor()
+
+c.execute('''CREATE TABLE IF NOT EXISTS books(
+    bookID INTEGER PRIMARY KEY,
+    booktitle VARCHAR(49) NOT NULL,
+    author VARCHAR(49) NOT NULL,
+    availability VARCHAR(7) Default 'YES',
+    callnum VARCHAR(21) NOT NULL,
+    callcutter VARCHAR(7) NOT NULL,
+    barcode VARCHAR(14) Default '69420')
+    ''')
+
+conn.commit()
+conn.close()
 
 customtkinter.set_appearance_mode("system")
 customtkinter.set_default_color_theme("blue")

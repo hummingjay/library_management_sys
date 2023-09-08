@@ -3,7 +3,6 @@ import customtkinter
 import sqlite3
 from tkinter import messagebox
 import process_logic
-import subprocess
 
 conn = sqlite3.connect("users.db")
 c =conn.cursor()
@@ -33,7 +32,7 @@ class inputframe(customtkinter.CTkFrame):
         self.repasswd = customtkinter.CTkEntry(self, placeholder_text="re-enter password")
         self.repasswd.grid(row=3, column=0, pady=12, padx=10)
         
-        #login button
+        #create user button
         self.button = customtkinter.CTkButton(self, text="Create me", command=self.create_user, font=("gothic", 21))
         self.button.grid(row=4, column=0, pady=12, padx=10)
         
