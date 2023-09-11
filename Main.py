@@ -28,8 +28,11 @@ class sideframe(customtkinter.CTkFrame):
         self.the_label = customtkinter.CTkLabel(self, text="My Library", font=("Helvetica", 14))
         self.the_label.grid(row=0, column=0, padx=20, pady=10)
         
-        self.searchbtn = customtkinter.CTkButton(self, text="Catalog", command=App.books_view)
-        self.searchbtn.grid(row=2, column=0, padx=10, pady=20)
+        self.home_btn = customtkinter.CTkButton(self, text="Home",font=("Helvetica", 21), command=App.home(self))
+        self.home_btn.grid(row=1, column=0, padx=21, pady=14)
+        
+        self.catalogbtn = customtkinter.CTkButton(self, text="Catalog", command=App.books_view)
+        self.catalogbtn.grid(row=2, column=0, padx=10, pady=20)
         
         self.adduserbtn =customtkinter.CTkButton(self, text="Add User", command=App.add_user)
         self.adduserbtn.grid(row=3, column=0, padx=20, pady=10)
@@ -97,6 +100,12 @@ class App(customtkinter.CTk):
         #setting defaults
         self.sideframe.appearance_mode_size.set("100%")
         self.sideframe.appearance_mode_color.set("System")
+    
+    def home(self):
+        home_frame = customtkinter.CTkFrame(resultframe)
+        home_frame_title = customtkinter.CTkLabel(home_frame, text="Home page", font=("Bold", 28))
+        home_frame_title.grid(row=0, column=0)
+    
     
     def search(self):
         pass
