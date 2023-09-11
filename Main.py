@@ -112,10 +112,14 @@ class App(customtkinter.CTk):
         #setting defaults
         self.sideframe.appearance_mode_size.set("100%")
         self.sideframe.appearance_mode_color.set("System")
+        
+        #initial page to be shown
+        self.show_home()
     
     def clear_resultframe(self):
         self.resultframe.clear_content()
     
+    # functions for home
     def show_home(self):
         self.clear_resultframe()
         self.pages["home"]()
@@ -124,26 +128,36 @@ class App(customtkinter.CTk):
         home_label = customtkinter.CTkLabel(self.resultframe, text="Home", font=("helvetica", 28))
         home_label.grid(row=0, column=0, padx=20, pady=10)
     
+    # function for such
     def search(self):
         pass
     
+    #functions for catalog
     def catalog(self):
-        pass
+        catalog_label = customtkinter.CTkLabel(self.resultframe, text="Catalogue", font=("helvetica", 28))
+        catalog_label.grid(row=0, column=0, padx=20, pady=10)
     
     def show_catalog(self):
-        pass
+        self.clear_resultframe()
+        self.pages["catalog"]()
     
+    #functions for adding user
     def add_user(self):
-        pass
+        add_user_label = customtkinter.CTkLabel(self.resultframe, text="Add Patron", font=("helvetica", 28))
+        add_user_label.grid(row=0, column=0, padx=20, pady=10)
     
     def show_add_user(self):
-        pass
+        self.clear_resultframe()
+        self.pages["add_user"]()
     
+    # functions for circulation
     def circulation(self):
-        pass
+        circulation_label = customtkinter.CTkLabel(self.resultframe, text="Circulation", font=("helvetica", 28))
+        circulation_label.grid(row=0, column=0, padx=20, pady=10)
     
     def show_circulation(self):
-        pass
+        self.clear_resultframe()
+        self.pages["circulation"]()
     
     
 
