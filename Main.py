@@ -104,7 +104,7 @@ class App(customtkinter.CTk):
         self.sideframe.grid(row=0, rowspan=4, column=0, sticky="wens")
         self.grid_rowconfigure(3, weight=1)
         self.search_bar = customtkinter.CTkEntry(self, placeholder_text="Search")
-        self.search_bar.grid(row=0, column=1, columnspan=2, padx=(20, 0), pady=(20,20), sticky="nsew")
+        self.search_bar.grid(row=0, column=1, columnspan=2, padx=(20, 5), pady=(20,20), sticky="nsew")
         self.search_bar_button = customtkinter.CTkButton(self, text="Search", command=self.search, fg_color="brown", hover_color="brown1")
         self.search_bar_button.grid(row=0, column=3)
         self.resultframe = resultframe(self)
@@ -140,11 +140,48 @@ class App(customtkinter.CTk):
     
     #functions for catalog
     def catalog(self):
+        self.resultframe.grid_columnconfigure((1, 2), weight=1)
+        self.resultframe.grid_columnconfigure((2, 3), weight=0)
         conn = sqlite3.connect("books.db")
         c = conn.cursor()
         
+        # Labels
         catalog_label = customtkinter.CTkLabel(self.resultframe, text="Catalogue", font=("helvetica", 28))
         catalog_label.grid(row=0, column=0, padx=20, pady=10)
+        
+        Book_title_label =customtkinter.CTkLabel(self.resultframe, text="Book Name:", font=("Helvetica", 14))
+        Book_title_label.grid(row=1, column=0)
+        
+        author_name_label = customtkinter.CTkLabel(self.resultframe, text="Author:",font=("Helvetica", 14))
+        author_name_label.grid(row=2, column=0)
+        
+        call_number_label =customtkinter.CTkLabel(self.resultframe, text="Call Number:", font=("Helvetica", 14))
+        call_number_label.grid(row=3, column=0)
+        
+        call_cutter_label = customtkinter.CTkLabel(self.resultframe, text="Call Cutter:",font=("Helvetica", 14))
+        call_cutter_label.grid(row=4, column=0)
+        
+        lib_serial_label = customtkinter.CTkLabel(self.resultframe, text="Call Cutter:",font=("Helvetica", 14))
+        lib_serial_label.grid(row=5, column=0)
+        
+        # define Entries
+        Book_title = customtkinter.CTkEntry(self.resultframe, placeholder_text="Book Title")
+        Book_title.grid(row=1, column=1, columnspan=2, padx=(5, 5), pady=(20,20), sticky="nsew")
+        
+        author_name = customtkinter.CTkEntry(self.resultframe, placeholder_text="Author")
+        author_name.grid(row=2, column=1, columnspan=2, padx=(5, 5), pady=(20, 20), sticky="news")
+        
+        call_number = customtkinter.CTkEntry(self.resultframe, placeholder_text="Call Number")
+        call_number.grid(row=3, column=1, columnspan=2, padx=(5, 5), pady=(20,20), sticky="nsew")
+        
+        call_cutter = customtkinter.CTkEntry(self.resultframe, placeholder_text="Call Cutter")
+        call_cutter.grid(row=4, column=1, columnspan=2, padx=(5, 5), pady=(20, 20), sticky="news")
+        
+        lib_serial = customtkinter.CTkEntry(self.resultframe, placeholder_text="eg:123456789")
+        lib_serial.grid(row=5, column=1, columnspan=2, padx=(5, 5), pady=(20, 20), sticky="news")
+        
+        submit_btn = customtkinter.CTkButton(self.resultframe, text="Submit")
+        submit_btn.grid(row=6, column=2, padx=(5,5))
         
         conn.commit()
         conn.close()
