@@ -1,10 +1,9 @@
 import customtkinter
-#import loginv2
-from tkinter import *
 import sqlite3
+from tkinter import *
 
 conn = sqlite3.connect("books.db")
-c =conn.cursor()
+c = conn.cursor()
 
 c.execute('''CREATE TABLE IF NOT EXISTS books(
     bookID INTEGER PRIMARY KEY,
@@ -27,36 +26,37 @@ class sideframe(customtkinter.CTkFrame):
         super().__init__(master, width=140, corner_radius=7)
         self.the_label = customtkinter.CTkLabel(self, text="My Library", font=("Helvetica", 14))
         self.the_label.grid(row=0, column=0, padx=20, pady=10)
-        
-        self.home_btn = customtkinter.CTkButton(self, text="Home",font=("Helvetica", 21), command=master.show_home)
+
+        # Buttons for switching between pages
+        self.home_btn = customtkinter.CTkButton(self, text="Home", font=("Helvetica", 21), command=master.show_home)
         self.home_btn.grid(row=1, column=0, padx=21, pady=14)
-        
+
         self.catalogbtn = customtkinter.CTkButton(self, text="Catalog", command=master.show_catalog)
         self.catalogbtn.grid(row=2, column=0, padx=10, pady=20)
-        
-        self.adduserbtn =customtkinter.CTkButton(self, text="Add User", command=master.show_add_user)
+
+        self.adduserbtn = customtkinter.CTkButton(self, text="Add User", command=master.show_add_user)
         self.adduserbtn.grid(row=3, column=0, padx=20, pady=10)
-        
+
         self.circulate = customtkinter.CTkButton(self, text="Circulation", command=master.show_circulation)
         self.circulate.grid(row=4, column=0, padx=20, pady=10)
-        
+
         self.appearance_mode_label = customtkinter.CTkLabel(self, text="Appearance Mode:")
         self.appearance_mode_label.grid(row=6, column=0, padx=20, pady=10)
-        
+
         self.appearance_mode_size_label = customtkinter.CTkLabel(self, text="Zoom")
         self.appearance_mode_size_label.grid(row=7, column=0)
-        
+
         self.appearance_mode_size = customtkinter.CTkOptionMenu(self, values=["50", "60", "70", "80", "90", "100", "110", "120", "130"],
                                                                 command=self.change_scaling_event)
         self.appearance_mode_size.grid(row=8, column=0, padx=20, pady=10)
-        
+
         self.appearance_mode_color_label = customtkinter.CTkLabel(self, text="Color mode")
         self.appearance_mode_color_label.grid(row=9, column=0)
-        
+
         self.appearance_mode_color = customtkinter.CTkOptionMenu(self, values=["Dark", "System", "Light"],
                                                                  command=self.change_appearance_mode_event)
         self.appearance_mode_color.grid(row=10, column=0, padx=20, pady=10)
-        
+
     def change_appearance_mode_event(self, new_appearance_mode: str):
         """Sets the app into light, dark or system mode"""
         customtkinter.set_appearance_mode(new_appearance_mode)
@@ -69,30 +69,28 @@ class sideframe(customtkinter.CTkFrame):
 class resultframe(customtkinter.CTkFrame):
     def __init__(self, master):
         super().__init__(master, fg_color="transparent")
-    
+
     def clear_content(self):
         for widget in self.winfo_children():
             widget.destroy()
-        
-        
-      
+
 class App(customtkinter.CTk):
     """Main instance of the App"""
     def __init__(self):
         super().__init__()
-        
+
         self.title("Library Management system")
         self.geometry("770x700")
         self.iconbitmap("images/login.ico")
 
         # dictionary to map pages to their corresponding frame
         self.pages = {
-            "home": self.home,
-            "catalog": self.catalog,
-            "add_user": self.add_user,
-            "circulation": self.circulation
+            "home": self.create_home,
+            "catalog": self.create_catalog,
+            "add_user": self.create_add_user,
+            "circulation": self.create_circulation
         }
-        
+
         # configuring the grid layout
         self.grid_columnconfigure((1, 2), weight=1)
         self.grid_columnconfigure((2,3), weight=0)
@@ -108,44 +106,51 @@ class App(customtkinter.CTk):
         self.search_bar_button.grid(row=0, column=3)
         self.resultframe = resultframe(self)
         self.resultframe.grid(row=1, rowspan=3, column=1, columnspan=3, sticky="wens")
-        
-        #setting defaults
+
+        # setting defaults
         self.sideframe.appearance_mode_size.set("100%")
         self.sideframe.appearance_mode_color.set("System")
-    
+
+        # Initially, show the "Home" page
+        self.show_home()
+
     def clear_resultframe(self):
         self.resultframe.clear_content()
-    
+
     def show_home(self):
         self.clear_resultframe()
         self.pages["home"]()
-        
-    def home(self):
-        home_label = customtkinter.CTkLabel(self.resultframe, text="Home", font=("helvetica", 28))
-        home_label.grid(row=0, column=0, padx=20, pady=10)
-    
+
+    def create_home(self):
+        home_label = customtkinter.CTkLabel(self.resultframe, text="Home")
+        home_label.pack()
+
     def search(self):
         pass
-    
-    def catalog(self):
-        pass
-    
+
     def show_catalog(self):
-        pass
-    
-    def add_user(self):
-        pass
-    
+        self.clear_resultframe()
+        self.pages["catalog"]()
+
+    def create_catalog(self):
+        catalog_label = customtkinter.CTkLabel(self.resultframe, text="Catalog")
+        catalog_label.pack()
+
     def show_add_user(self):
-        pass
-    
-    def circulation(self):
-        pass
-    
+        self.clear_resultframe()
+        self.pages["add_user"]()
+
+    def create_add_user(self):
+        add_user_label = customtkinter.CTkLabel(self.resultframe, text="Add User")
+        add_user_label.pack()
+
     def show_circulation(self):
-        pass
-    
-    
+        self.clear_resultframe()
+        self.pages["circulation"]()
+
+    def create_circulation(self):
+        circulation_label = customtkinter.CTkLabel(self.resultframe, text="Circulation")
+        circulation_label.pack()
 
 app = App()
 app.mainloop()
