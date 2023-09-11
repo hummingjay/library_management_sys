@@ -140,8 +140,14 @@ class App(customtkinter.CTk):
     
     #functions for catalog
     def catalog(self):
+        conn = sqlite3.connect("books.db")
+        c = conn.cursor()
+        
         catalog_label = customtkinter.CTkLabel(self.resultframe, text="Catalogue", font=("helvetica", 28))
         catalog_label.grid(row=0, column=0, padx=20, pady=10)
+        
+        conn.commit()
+        conn.close()
     
     def show_catalog(self):
         self.clear_resultframe()
