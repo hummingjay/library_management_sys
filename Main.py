@@ -90,7 +90,8 @@ class App(customtkinter.CTk):
             "home": self.home,
             "catalog": self.catalog,
             "add_user": self.add_user,
-            "circulation": self.circulation
+            "circulation": self.circulation,
+            "search": self.search
         }
         
         # configuring the grid layout
@@ -128,9 +129,14 @@ class App(customtkinter.CTk):
         home_label = customtkinter.CTkLabel(self.resultframe, text="Home", font=("helvetica", 28))
         home_label.grid(row=0, column=0, padx=20, pady=10)
     
-    # function for such
+    # functions for search
     def search(self):
-        pass
+        home_label = customtkinter.CTkLabel(self.resultframe, text="Search Results:", font=("helvetica", 28))
+        home_label.grid(row=0, column=0, padx=20, pady=10)
+    
+    def show_search(self):
+        self.clear_resultframe()
+        self.pages["search"]()
     
     #functions for catalog
     def catalog(self):
