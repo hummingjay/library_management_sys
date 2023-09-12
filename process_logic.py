@@ -68,3 +68,21 @@ class login_logic:
             conn.commit()
             conn.close()
             return 2
+
+class books_database_logic:
+    """Saves, deletes, updates and checks the database for books"""
+    def submit(self, booktitle, author, callnum, callcutter, barcode):
+        """Submit takes in the 4 variables and inserts them into the books database"""
+        if not booktitle or not author or not callnum or not callcutter or not barcode:
+            return 0
+        else:
+            conn = sqlite3.connect("books.db")
+            c = conn.cursor()
+            
+            insert_books = "INSERT INTO books(booktitle, author, callnum, callcutter, barcode) VALUES(?, ?, ?, ?, ?)"
+            c.execute(insert_books, (booktitle, author, callnum, callcutter, barcode))
+            
+            conn.commit()
+            conn.close()
+            
+            return 1

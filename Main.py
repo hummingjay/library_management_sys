@@ -1,7 +1,8 @@
 import customtkinter
-#import loginv2
+import process_logic
 from tkinter import *
 import sqlite3
+from tkinter import messagebox
 
 conn = sqlite3.connect("books.db")
 c =conn.cursor()
@@ -142,8 +143,6 @@ class App(customtkinter.CTk):
     def catalog(self):
         self.resultframe.grid_columnconfigure((1, 2), weight=1)
         self.resultframe.grid_columnconfigure((2, 3), weight=0)
-        conn = sqlite3.connect("books.db")
-        c = conn.cursor()
         
         # Labels
         catalog_label = customtkinter.CTkLabel(self.resultframe, text="Catalogue", font=("helvetica", 28))
@@ -161,7 +160,7 @@ class App(customtkinter.CTk):
         call_cutter_label = customtkinter.CTkLabel(self.resultframe, text="Call Cutter:",font=("Helvetica", 14))
         call_cutter_label.grid(row=4, column=0)
         
-        lib_serial_label = customtkinter.CTkLabel(self.resultframe, text="Call Cutter:",font=("Helvetica", 14))
+        lib_serial_label = customtkinter.CTkLabel(self.resultframe, text="Barcode:",font=("Helvetica", 14))
         lib_serial_label.grid(row=5, column=0)
         
         # define Entries
@@ -180,11 +179,23 @@ class App(customtkinter.CTk):
         lib_serial = customtkinter.CTkEntry(self.resultframe, placeholder_text="eg:123456789")
         lib_serial.grid(row=5, column=1, columnspan=2, padx=(5, 5), pady=(20, 20), sticky="news")
         
-        submit_btn = customtkinter.CTkButton(self.resultframe, text="Submit")
-        submit_btn.grid(row=6, column=2, padx=(5,5))
+        #submission defination and picking
+        def submit_catalog():
+            booktitle = Book_title.get()
+            author = author_name.get()
+            callnum = call_number.get()
+            callcutter = call_cutter.get()
+            barcode = lib_serial.get()
+            
+            submission = process_logic.books_database_logic.submit(self, booktitle, author, callnum, callcutter, barcode)
+            
+            if submission == 0:
+                messagebox.showerror("Empty inputs", "Please input all required values")
+            else:
+                pass
         
-        conn.commit()
-        conn.close()
+        submit_btn = customtkinter.CTkButton(self.resultframe, text="Submit", command=submit_catalog)
+        submit_btn.grid(row=6, column=2, padx=(5,5))
     
     def show_catalog(self):
         self.clear_resultframe()
