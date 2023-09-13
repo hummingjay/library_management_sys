@@ -214,7 +214,7 @@ class App(customtkinter.CTk):
             if submission == 0:
                 messagebox.showerror("Empty inputs", "Please input all required values")
             else:
-                self.show_home
+                self.show_home()
         
         submit_btn = customtkinter.CTkButton(self.resultframe, text="Submit", command=submit_catalog)
         submit_btn.grid(row=6, column=2, padx=(5,5))

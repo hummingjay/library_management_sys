@@ -50,8 +50,8 @@ class inputframe(customtkinter.CTkFrame):
         elif results == 0:
               messagebox.showinfo("Login requirements", "Input username and password")
         else:
+            self.master.destroy()
             subprocess.run(["python", "Main.py"])
-            self.destroy()
     
 class App(customtkinter.CTk):
     """Main app for running login page Accesese the frames 

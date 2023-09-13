@@ -49,7 +49,7 @@ class inputframe(customtkinter.CTkFrame):
         elif results == 0:
               messagebox.showinfo("Login requirements", "Input username and password")
         else:
-            self.destroy()
+            self.master.destroy()
     
 class App(customtkinter.CTk):
     """Main app for running login page Accesese the frames and defines the geometry of login page"""
