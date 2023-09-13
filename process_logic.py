@@ -86,3 +86,34 @@ class books_database_logic:
             conn.close()
             
             return 1
+    
+    def book_name(self):
+        """Selects specific data from the database and return the value"""
+        conn = sqlite3.connect("books.db")
+        c = conn.cursor()
+        
+        c.execute("SELECT booktitle FROM books ORDER BY bookID DESC LIMIT 1")
+        
+        value = c.fetchone()
+        values = str(value)
+        
+        conn.commit()
+        conn.close()
+        
+        return values
+    
+    def book_author(self):
+        """Selects specific data from the database and return the value"""
+        conn = sqlite3.connect("books.db")
+        c = conn.cursor()
+        
+        c.execute("SELECT author FROM books ORDER BY bookID DESC LIMIT 1")
+        
+        value = c.fetchone()
+        values = str(value)
+        
+        conn.commit()
+        conn.close()
+        
+        return values
+        

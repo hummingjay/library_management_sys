@@ -106,7 +106,7 @@ class App(customtkinter.CTk):
         self.grid_rowconfigure(3, weight=1)
         self.search_bar = customtkinter.CTkEntry(self, placeholder_text="Search")
         self.search_bar.grid(row=0, column=1, columnspan=2, padx=(20, 5), pady=(20,20), sticky="nsew")
-        self.search_bar_button = customtkinter.CTkButton(self, text="Search", command=self.search, fg_color="brown", hover_color="brown1")
+        self.search_bar_button = customtkinter.CTkButton(self, text="Search", command=self.show_search, fg_color="brown", hover_color="brown1")
         self.search_bar_button.grid(row=0, column=3)
         self.resultframe = resultframe(self)
         self.resultframe.grid(row=1, rowspan=3, column=1, columnspan=3, sticky="wens")
@@ -129,6 +129,28 @@ class App(customtkinter.CTk):
     def home(self):
         home_label = customtkinter.CTkLabel(self.resultframe, text="Home", font=("helvetica", 28))
         home_label.grid(row=0, column=0, padx=20, pady=10)
+        
+        recent_books = customtkinter.CTkLabel(self.resultframe, text="Recent Books:", font=("helvetica", 14))
+        recent_books.grid(row=1, column=0, padx=20, pady=10)
+        
+        book_name_tile = customtkinter.CTkLabel(self.resultframe, text="Book")
+        book_name_tile.grid(row=2, column=0, padx=20, pady=10)
+        
+        b_name = process_logic.books_database_logic.book_name(self)
+        
+        book_name = customtkinter.CTkLabel(self.resultframe, text=b_name)
+        book_name.grid(row=3, column=0, padx=20, pady=10)
+        
+        book_author_tile = customtkinter.CTkLabel(self.resultframe, text="Author")
+        book_author_tile.grid(row=2, column=1, padx=20, pady=10)
+        
+        a_name = process_logic.books_database_logic.book_author(self)
+        
+        book_author = customtkinter.CTkLabel(self.resultframe, text=a_name)
+        book_author.grid(row=3, column=1, padx=20, pady=10)
+        
+        
+        
     
     # functions for search
     def search(self):
@@ -192,7 +214,7 @@ class App(customtkinter.CTk):
             if submission == 0:
                 messagebox.showerror("Empty inputs", "Please input all required values")
             else:
-                pass
+                self.show_home
         
         submit_btn = customtkinter.CTkButton(self.resultframe, text="Submit", command=submit_catalog)
         submit_btn.grid(row=6, column=2, padx=(5,5))
@@ -220,6 +242,6 @@ class App(customtkinter.CTk):
         self.pages["circulation"]()
     
     
-
-app = App()
-app.mainloop()
+if __name__ == "__main__":
+    app = App()
+    app.mainloop()

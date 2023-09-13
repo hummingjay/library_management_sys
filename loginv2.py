@@ -54,7 +54,8 @@ class inputframe(customtkinter.CTkFrame):
             self.destroy()
     
 class App(customtkinter.CTk):
-    """Main app for running login page Accesese the frames and defines the geometry of login page"""
+    """Main app for running login page Accesese the frames 
+    and defines the geometry of login page"""
     def __init__(self):
         super().__init__()
         
