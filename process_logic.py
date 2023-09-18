@@ -94,8 +94,8 @@ class books_database_logic:
         
         c.execute("SELECT booktitle FROM books ORDER BY bookID DESC LIMIT 1")
         
-        value = c.fetchone()
-        values = str(value)
+        for value in c.fetchall():
+            values = value[0]
         
         conn.commit()
         conn.close()
@@ -109,8 +109,11 @@ class books_database_logic:
         
         c.execute("SELECT author FROM books ORDER BY bookID DESC LIMIT 1")
         
-        value = c.fetchone()
-        values = str(value)
+       # value = c.fetchone()
+        #values = str(value)
+        
+        for value in c.fetchall():
+            values = value[0]
         
         conn.commit()
         conn.close()
