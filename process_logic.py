@@ -119,4 +119,11 @@ class books_database_logic:
         conn.close()
         
         return values
-        
+
+class button_funcs:
+    """Defines what happens when keyboard functions are entered
+    presses such as tab, enter and shortcuts for copy and paste
+    """
+    def go_to_next_element(event):
+        """Function to move to the next input widget"""
+        event.widget.tk_focusNext().focus()

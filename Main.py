@@ -74,8 +74,8 @@ class resultframe(customtkinter.CTkFrame):
     def clear_content(self):
         for widget in self.winfo_children():
             widget.destroy()
-        
-        
+
+      
       
 class App(customtkinter.CTk):
     """Main instance of the App"""
@@ -188,18 +188,27 @@ class App(customtkinter.CTk):
         # define Entries
         Book_title = customtkinter.CTkEntry(self.resultframe, placeholder_text="Book Title")
         Book_title.grid(row=1, column=1, columnspan=2, padx=(5, 5), pady=(20,20), sticky="nsew")
+        Book_title.focus()
+        Book_title.bind('<Return>', process_logic.button_funcs.go_to_next_element)
         
         author_name = customtkinter.CTkEntry(self.resultframe, placeholder_text="Author")
         author_name.grid(row=2, column=1, columnspan=2, padx=(5, 5), pady=(20, 20), sticky="news")
+        author_name.bind('<Return>', process_logic.button_funcs.go_to_next_element)
         
         call_number = customtkinter.CTkEntry(self.resultframe, placeholder_text="Call Number")
         call_number.grid(row=3, column=1, columnspan=2, padx=(5, 5), pady=(20,20), sticky="nsew")
+        call_number.bind('<Return>', process_logic.button_funcs.go_to_next_element)
+
         
         call_cutter = customtkinter.CTkEntry(self.resultframe, placeholder_text="Call Cutter")
         call_cutter.grid(row=4, column=1, columnspan=2, padx=(5, 5), pady=(20, 20), sticky="news")
+        call_cutter.bind('<Return>', process_logic.button_funcs.go_to_next_element)
+
         
         lib_serial = customtkinter.CTkEntry(self.resultframe, placeholder_text="eg:123456789")
         lib_serial.grid(row=5, column=1, columnspan=2, padx=(5, 5), pady=(20, 20), sticky="news")
+        lib_serial.bind('<Return>', process_logic.button_funcs.go_to_next_element)
+
         
         #submission defination and picking
         def submit_catalog():
