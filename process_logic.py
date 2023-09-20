@@ -94,13 +94,15 @@ class books_database_logic:
         
         c.execute("SELECT booktitle FROM books ORDER BY bookID DESC LIMIT 1")
         
+        bookname = None
+        
         for value in c.fetchall():
-            values = value[0]
+            bookname = value[0]
         
         conn.commit()
         conn.close()
         
-        return values
+        return bookname
     
     def book_author(self):
         """Selects specific data from the database and return the value"""
@@ -111,14 +113,15 @@ class books_database_logic:
         
        # value = c.fetchone()
         #values = str(value)
+        bookauthor = None
         
         for value in c.fetchall():
-            values = value[0]
+            bookauthor = value[0]
         
         conn.commit()
         conn.close()
         
-        return values
+        return bookauthor
 
 class button_funcs:
     """Defines what happens when keyboard functions are entered

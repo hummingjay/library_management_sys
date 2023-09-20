@@ -227,6 +227,7 @@ class App(customtkinter.CTk):
         
         submit_btn = customtkinter.CTkButton(self.resultframe, text="Submit", command=submit_catalog)
         submit_btn.grid(row=6, column=2, padx=(5,5))
+        submit_btn.bind('<Return>', submit_catalog)
     
     def show_catalog(self):
         self.clear_resultframe()
